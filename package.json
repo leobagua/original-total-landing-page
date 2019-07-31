@@ -1,0 +1,42 @@
+{
+	"name": "original-total-landing-page",
+	"description": "Landing Page da Original Total",
+	"version": "0.0.1",
+	"private": true,
+	"author": "Original Total",
+	"license": "",
+	"devDependencies": {
+		"@babel/cli": "^7.4.4",
+		"cpx": "^1.5.0",
+		"cross-env": "^5.2.0",
+		"firebase-tools": "^6.7.1",
+		"husky": "^2.1.0",
+		"lerna": "^3.13.4",
+		"lint-staged": "^8.1.5",
+		"prettier": "^1.17.0",
+		"rimraf": "^2.6.3"
+	},
+	"workspaces": [
+		"packages/common",
+		"packages/landing",
+		"packages/landing-gatsby",
+		"packages/reusecore"
+	],
+	"scripts": {
+		"web": "yarn workspace next-landing run dev",
+		"build": "rimraf dist && yarn workspace next-landing run build",
+		"start": "yarn workspace next-landing run start",
+		"deploy": "yarn workspace next-landing run export"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"lint-staged": {
+		"*.{js,md,css}": [
+			"prettier --trailing-comma es5 --single-quote --write",
+			"git add"
+		]
+	}
+}
