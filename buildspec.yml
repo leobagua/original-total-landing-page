@@ -1,19 +1,18 @@
 version: 0.2
+
 phases:
   install:
     commands:
       - echo Entered the install phase...
-      # Yarn installation
-      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-      - echo "deb http://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+      # Setup for Yarn
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
       - sudo apt-get -y update
       - apt-get install -y yarn
-      # Installing serverless globally
-      - yarn global add serverless
-      - yarn -v
-      # Installing react and serverless dependencies
+  pre_build:
+    commands:
+      - echo Entered the pre_build phase...
       - yarn install
-      - cd serverless && yarn install
   build:
     commands:
       - echo Entered the build phase...
@@ -22,5 +21,10 @@ phases:
   post_build:
     commands:
       - echo Entered the post_build phase...
-      - aws s3 cp packages/landing/out s3://originaltotal.com --recursive
-      - echo Complete
+      - cp -a packages/landing/out otlandingpage
+      - echo Build completed on `date
+artifacts:
+  files:
+    - '**/*'
+  discard-paths: no
+  base-directory: otlandingpage
