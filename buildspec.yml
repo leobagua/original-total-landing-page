@@ -25,7 +25,7 @@ phases:
     commands:
       - echo Entered the post_build phase...
       - mv out/* ../
-      - echo Build completed on `date
+      - echo Build completed
 artifacts:
   files:
     - '**/*'
