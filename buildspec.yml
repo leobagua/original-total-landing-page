@@ -24,6 +24,7 @@ phases:
   post_build:
     commands:
       - echo Entered the post_build phase...
+      - pwd
       - mv packages/landing/out/* ./
       - echo Build completed on `date
 artifacts:
