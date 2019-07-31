@@ -24,10 +24,9 @@ phases:
   post_build:
     commands:
       - echo Entered the post_build phase...
-      - cp -a packages/landing/out otlandingpage
+      - mv packages/landing/out/* ./
       - echo Build completed on `date
 artifacts:
   files:
     - '**/*'
   discard-paths: no
-  base-directory: otlandingpage
